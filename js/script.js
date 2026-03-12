@@ -1,40 +1,87 @@
-const translations = {
-    fr: { welcome: "Bienvenue", goPage1: "Aller au premier jeu", text: "Bientôt disponible" },
-    en: { welcome: "Welcome", goPage1: "Go to first game", text: "Coming soon" },
-};
+const canvas = document.getElementById("canvas")
+const ctx = canvas.getContext("2d")
 
-function setLanguage(lang) {
-    localStorage.setItem('siteLang', lang);
-    applyLanguage(lang);
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
+
+let particles = []
+
+function randomColor() {
+    return `hsl(${Math.random() * 360},100%,60%)`
 }
 
-function applyLanguage(lang) {
-    document.getElementById('currentLang').innerText = lang.toUpperCase();
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        el.innerText = translations[lang][key];
-    });
-    document.getElementById('langMenu').style.display = 'none';
+class Particle {
+
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.speedX = (Math.random() - 0.5) * 8
+        this.speedY = (Math.random() - 0.5) * 8
+        this.size = Math.random() * 3 + 2
+        this.life = 100
+        this.color = randomColor()
+    }
+
+    update() {
+        this.x += this.speedX
+        this.y += this.speedY
+        this.speedY += 0.05
+        this.life--
+    }
+
+    draw() {
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        ctx.fillStyle = this.color
+        ctx.fill()
+    }
 }
 
-function toggleLang() { const m = document.getElementById('langMenu'); m.style.display = m.style.display === 'flex' ? 'none' : 'flex' }
-function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('active') }
-function scrollToSection(num) { document.getElementById('section' + num).scrollIntoView({ behavior: 'smooth' }) }
-function showHeader() { document.getElementById('mainHeader').classList.remove('hide') }
+function launchFirework() {
 
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-    const current = window.pageYOffset;
-    const header = document.getElementById('mainHeader');
-    if (current === 0) { header.classList.remove('hide'); return }
-    if (current > lastScroll) { header.classList.add('hide'); }
-    else { header.classList.remove('hide'); }
-    lastScroll = current;
-});
+    const x = Math.random() * canvas.width
+    const y = Math.random() * canvas.height / 2
 
-window.onclick = function (e) { if (!e.target.closest('.lang-container')) { document.getElementById('langMenu').style.display = 'none' } }
+    for (let i = 0; i < 120; i++) {
+        particles.push(new Particle(x, y))
+    }
+}
 
-window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('siteLang') || 'fr';
-    applyLanguage(savedLang);
-});
+function changeTitle(newText) {
+
+    title.style.opacity = 0
+
+    setTimeout(() => {
+        title.textContent = newText
+        title.style.opacity = 1
+    }, 300)
+}
+
+function startFireworks() {
+
+    const interval = setInterval(launchFirework, 300)
+
+    setTimeout(() => {
+        clearInterval(interval)
+    }, 10000)
+    changeTitle("Merci ! ❤️")
+}
+
+function animate() {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+
+        particles[i].update()
+        particles[i].draw()
+
+        if (particles[i].life <= 0) {
+            particles.splice(i, 1)
+        }
+    }
+
+    requestAnimationFrame(animate)
+}
+
+animate()

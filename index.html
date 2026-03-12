@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+    <meta name="robots" content="noindex">
     <meta charset="UTF-8">
     <title>Happetit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,30 +10,13 @@
 </head>
 
 <body>
-    <header id="mainHeader">
-        <a href="index.html">
-            <button class="title">Happetit</button>
-        </a>
-        <div class="header-buttons">
-            <div class="lang-container">
-                <button class="circle-btn" onclick="toggleLang()" id="currentLang">FR</button>
-                <div class="lang-dropdown" id="langMenu">
-                    <button onclick="setLanguage('fr')">Français</button>
-                    <button onclick="setLanguage('en')">English</button>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <section class="section" id="section1">
-        <h1 data-i18n="welcome">Bienvenue</h1>
-        <a href="page1.html"><button class="btn-orange" data-i18n="goPage1">Aller au premier jeu</button></a>
-        <button class="scroll-btn" onclick="scrollToSection(2)">↓</button>
-    </section>
+    <h1 id="title">🎆 Acceptez vous de faire parti de mes garçons d'honneur ? 🎆</h1>
 
-    <footer id="section2">
-        <button class="scroll-btn" onclick="scrollToSection(1); showHeader();">↑</button>
-    </footer>
+    <button onclick="startFireworks()">Oui</button>
+    <button class="no">Non</button>
+
+    <canvas id="canvas"></canvas>
 
     <script src="js/script.js"></script>
 </body>
