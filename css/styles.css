@@ -26,7 +26,7 @@ h1{
 
 button{
     position:absolute;
-    top:45vh;
+    top:55vh;
     padding:15px 30px;
     font-size:18px;
     border:none;
@@ -39,7 +39,7 @@ button{
 
 .no {
     position:absolute;
-    top:55vh;
+    top:65vh;
     padding:10px 10px;
     font-size:18px;
     border:none;
