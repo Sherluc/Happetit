@@ -23,35 +23,3 @@ h1{
     text-shadow:0 0 20px rgba(255,255,255,0.8);
     padding: 40px;
 }
-
-button{
-    position:absolute;
-    top:55vh;
-    padding:15px 30px;
-    font-size:18px;
-    border:none;
-    border-radius:10px;
-    background:#ff4d6d;
-    color:white;
-    cursor:pointer;
-    z-index: 10;
-}
-
-.no {
-    position:absolute;
-    top:65vh;
-    padding:10px 10px;
-    font-size:18px;
-    border:none;
-    border-radius:10px;
-    background:#6b6869;
-    color:white;
-    cursor:not-allowed;
-    z-index: 10;
-}
-
-canvas{
-    position:absolute;
-    top:0;
-    left:0;
-}
